@@ -11,7 +11,8 @@ async function handler(event, context) {
   console.log(targetHandlerFile)
   console.log(targetHandlerFunction)
   console.log(event.location)
-  const target = require(path.resolve(__dirname, '../..', event.location, targetHandlerFile));
+  path.resolve(__dirname, '../..', targetHandlerFile)
+  const target = require(path.resolve(__dirname, '../..', targetHandlerFile));
 
   const targetEvent = JSON.parse(Payload);
   const targetContext = {
