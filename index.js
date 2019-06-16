@@ -135,7 +135,8 @@ const functionProxy = (functionBeingProxied, location) => ({
           }
         }
       }
-    }
+    },
+
     // See methods above for further details
     AWS_SDK_METHOD(functionBeingProxied, location)
   ],
