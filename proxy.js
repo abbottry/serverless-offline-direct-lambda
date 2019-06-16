@@ -1,6 +1,15 @@
 const serializeError = require('serialize-error');
 const path = require('path');
 
+const awsSerializedError = error => {
+  const { name, message, stack } = serializeError(error)
+  return {
+    errorMessage: message || error,
+    errorName: name,
+    errorStack: stack,
+  }
+}
+
 async function handler(event, context) {
   const { ClientContext, FunctionName, InvocationType, LogType, Payload } = event.body;
 
@@ -35,7 +44,7 @@ async function handler(event, context) {
   try {
     return { StatusCode: 200, Payload: JSON.stringify(await funcResult) };
   } catch (error) {
-    return { StatusCode: 500, FunctionError: 'Handled', Payload: serializeError(error) };
+    return { StatusCode: 200, FunctionError: 'Handled', Payload: JSON.stringify(awsSerializedError(error)) };
   }
 }
 
