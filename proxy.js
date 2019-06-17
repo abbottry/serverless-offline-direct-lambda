@@ -16,7 +16,7 @@ async function handler(event, context) {
   // extract the path to the handler (relative to the project root)
   // and the function to call on the handler
   const [targetHandlerFile, targetHandlerFunction] = event.targetHandler.split('.');
-  const targetFunction = require(path.resolve(__dirname, '../..', event.location, targetHandlerFile)).default;
+  const target = require(path.resolve(__dirname, '../..', event.location, targetHandlerFile));
 
   const targetEvent = JSON.parse(Payload);
   const targetContext = {
@@ -28,7 +28,7 @@ async function handler(event, context) {
   }
 
   const funcResult = new Promise((resolve, reject) => {
-    const result = targetFunction(targetEvent, targetContext, (error, response) => {
+    const result = target[targetHandlerFunction](targetEvent, targetContext, (error, response) => {
       if (error) {
         reject(error);
       } else {
