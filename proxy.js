@@ -11,7 +11,7 @@ function handler(event, context, callback) {
   console.log('targetHandlerFile', targetHandlerFile)
   console.log('path', path.resolve(__dirname, '../..', event.location, targetHandlerFile))
 
-  const target = require(path.resolve(__dirname, targetHandlerFile.replace('src', 'dist')));
+  const target = require('/Users/rabbott3/Projects/serverless-edsc/serverless/dist/storeUserData/handler');
 
   // call the target function
   target[targetHandlerFunction](event.body, context, (error, response) => {
